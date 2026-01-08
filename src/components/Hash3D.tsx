@@ -20,6 +20,10 @@ export default function Hash3D() {
   const [primaryColor, setPrimaryColor] = useState('#1e40af');
   const [backgroundColor, setBackgroundColor] = useState('#ffffff');
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [opacity, setOpacity] = useState(100);
+  const [strokeEnabled, setStrokeEnabled] = useState(false);
+  const [strokeThickness, setStrokeThickness] = useState(2);
+  const [strokeColor, setStrokeColor] = useState('#000000');
 
   const { currentAnimation, animationState, playAnimation } = useAnimation({
     baseRotation: rotation,
@@ -45,6 +49,10 @@ export default function Hash3D() {
     setIsLightOn(preset.is_light_on);
     setPrimaryColor(preset.primary_color);
     setBackgroundColor(preset.background_color);
+    setOpacity(preset.opacity);
+    setStrokeEnabled(preset.stroke_enabled);
+    setStrokeThickness(preset.stroke_thickness);
+    setStrokeColor(preset.stroke_color);
     setRotation({ x: preset.rotation_x, y: preset.rotation_y });
     setTargetRotation({ x: preset.rotation_x, y: preset.rotation_y });
   };
@@ -66,6 +74,10 @@ export default function Hash3D() {
     is_light_on: isLightOn,
     primary_color: primaryColor,
     background_color: backgroundColor,
+    opacity: opacity,
+    stroke_enabled: strokeEnabled,
+    stroke_thickness: strokeThickness,
+    stroke_color: strokeColor,
   });
 
   useEffect(() => {
@@ -195,10 +207,21 @@ export default function Hash3D() {
     const hy = lengthY / 2;
     const hz = lengthZ / 2;
 
-    const faceStyle = (color: string) =>
-      isOutline
+    const faceStyle = (color: string) => {
+      const baseStyle: React.CSSProperties = isOutline
         ? { background: 'transparent', border: outlineBorder }
         : { background: color };
+
+      if (opacity < 100) {
+        baseStyle.opacity = opacity / 100;
+      }
+
+      if (strokeEnabled && !isOutline) {
+        baseStyle.border = `${strokeThickness}px solid ${strokeColor}`;
+      }
+
+      return baseStyle;
+    };
 
     const tiltTransform = isVertical ? `rotateX(${verticalTilt}deg)` : '';
     const baseTransform = `translate3d(${posX}px, ${posY}px, ${posZ}px) ${tiltTransform}`;
@@ -283,9 +306,10 @@ export default function Hash3D() {
     const ht = t / 2;
     const hl = activeBarLength / 2;
 
-    const lineStyle = {
+    const lineStyle: React.CSSProperties = {
       background: borderColor,
       position: 'absolute' as const,
+      opacity: opacity < 100 ? opacity / 100 : 1,
     };
 
     if (axis === 'x') {
@@ -449,6 +473,14 @@ export default function Hash3D() {
         setPrimaryColor={setPrimaryColor}
         backgroundColor={backgroundColor}
         setBackgroundColor={setBackgroundColor}
+        opacity={opacity}
+        setOpacity={setOpacity}
+        strokeEnabled={strokeEnabled}
+        setStrokeEnabled={setStrokeEnabled}
+        strokeThickness={strokeThickness}
+        setStrokeThickness={setStrokeThickness}
+        strokeColor={strokeColor}
+        setStrokeColor={setStrokeColor}
       />
 
       <PresetList

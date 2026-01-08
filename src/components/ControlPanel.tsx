@@ -19,6 +19,14 @@ interface ControlPanelProps {
   setPrimaryColor: (v: string) => void;
   backgroundColor: string;
   setBackgroundColor: (v: string) => void;
+  opacity: number;
+  setOpacity: (v: number) => void;
+  strokeEnabled: boolean;
+  setStrokeEnabled: (v: boolean) => void;
+  strokeThickness: number;
+  setStrokeThickness: (v: number) => void;
+  strokeColor: string;
+  setStrokeColor: (v: string) => void;
 }
 
 export default function ControlPanel({
@@ -40,6 +48,14 @@ export default function ControlPanel({
   setPrimaryColor,
   backgroundColor,
   setBackgroundColor,
+  opacity,
+  setOpacity,
+  strokeEnabled,
+  setStrokeEnabled,
+  strokeThickness,
+  setStrokeThickness,
+  strokeColor,
+  setStrokeColor,
 }: ControlPanelProps) {
   const buttonBase = `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border-2`;
 
@@ -92,6 +108,13 @@ export default function ControlPanel({
           {isOutline ? 'Outline' : 'Solid'}
         </button>
 
+        <button
+          onClick={() => setStrokeEnabled(!strokeEnabled)}
+          className={`${buttonBase} ${getButtonStyle(strokeEnabled)}`}
+        >
+          {strokeEnabled ? 'Stroke On' : 'Stroke Off'}
+        </button>
+
         <ColorPicker
           value={primaryColor}
           onChange={setPrimaryColor}
@@ -105,6 +128,15 @@ export default function ControlPanel({
           label="Sfondo"
           isDark={isDark}
         />
+
+        {strokeEnabled && (
+          <ColorPicker
+            value={strokeColor}
+            onChange={setStrokeColor}
+            label="Stroke"
+            isDark={isDark}
+          />
+        )}
       </div>
 
       <div className="flex flex-col gap-3 pt-2 border-t border-gray-500/30">
@@ -146,6 +178,34 @@ export default function ControlPanel({
           />
           <span className={`text-sm w-10 text-right ${labelClass}`}>{verticalTilt}°</span>
         </div>
+
+        <div className="flex items-center gap-3">
+          <label className={`text-sm font-medium w-24 ${labelClass}`}>Opacità</label>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={opacity}
+            onChange={(e) => setOpacity(Number(e.target.value))}
+            className={`flex-1 h-2 rounded-lg appearance-none cursor-pointer ${sliderTrack}`}
+          />
+          <span className={`text-sm w-10 text-right ${labelClass}`}>{opacity}%</span>
+        </div>
+
+        {strokeEnabled && (
+          <div className="flex items-center gap-3">
+            <label className={`text-sm font-medium w-24 ${labelClass}`}>Spessore Stroke</label>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value={strokeThickness}
+              onChange={(e) => setStrokeThickness(Number(e.target.value))}
+              className={`flex-1 h-2 rounded-lg appearance-none cursor-pointer ${sliderTrack}`}
+            />
+            <span className={`text-sm w-10 text-right ${labelClass}`}>{strokeThickness}px</span>
+          </div>
+        )}
       </div>
     </div>
   );

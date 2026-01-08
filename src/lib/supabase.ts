@@ -27,6 +27,10 @@ export interface Preset {
   is_light_on: boolean;
   primary_color: string;
   background_color: string;
+  opacity: number;
+  stroke_enabled: boolean;
+  stroke_thickness: number;
+  stroke_color: string;
   created_at: string;
   updated_at: string;
 }
@@ -48,4 +52,8 @@ export interface PresetSettings {
   is_light_on: boolean;
   primary_color: string;
   background_color: string;
+  opacity: number;
+  stroke_enabled: boolean;
+  stroke_thickness: number;
+  stroke_color: string;
 }
