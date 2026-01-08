@@ -1,6 +1,6 @@
 export interface AnimationKeyframe {
   time: number;
-  rotation?: { x: number; y: number };
+  rotation?: { x: number; y: number; z?: number };
   radius?: number;
   barLength?: number;
   color?: string;
@@ -215,11 +215,12 @@ export const animations: AnimationDefinition[] = [
     duration: 5000,
     keyframes: [
       { time: 0 },
-      { time: 0.2, radius: 1.8, barLength: 1.15, rotation: { x: 0, y: 90 }, color: '#FF7500' },
-      { time: 0.4, radius: 2.6, barLength: 1.3, rotation: { x: 0, y: 180 }, color: '#FF8C00' },
-      { time: 0.6, radius: 3.4, barLength: 1.4, rotation: { x: 0, y: 270 }, color: '#FF7500' },
-      { time: 0.8, radius: 4.2, barLength: 1.5, rotation: { x: 0, y: 360 }, color: '#FFA500' },
-      { time: 1.0, radius: 4.5, barLength: 1.6, rotation: { x: 0, y: 360 } },
+      { time: 0.15, radius: 1.8, barLength: 1.15, rotation: { x: 5, y: 0, z: 15 }, color: '#FF7500' },
+      { time: 0.3, radius: 2.6, barLength: 1.3, rotation: { x: -5, y: 0, z: -15 }, color: '#FF8C00' },
+      { time: 0.5, radius: 3.4, barLength: 1.4, rotation: { x: 5, y: 0, z: 12 }, color: '#FF7500' },
+      { time: 0.7, radius: 4.2, barLength: 1.5, rotation: { x: -5, y: 0, z: -12 }, color: '#FFA500' },
+      { time: 0.85, radius: 4.5, barLength: 1.6, rotation: { x: 3, y: 0, z: 8 } },
+      { time: 1.0, radius: 4.5, barLength: 1.6, rotation: { x: 0, y: 0, z: 0 } },
     ],
     sound: {
       type: 'oscillator',

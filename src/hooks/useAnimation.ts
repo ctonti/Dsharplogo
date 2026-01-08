@@ -3,14 +3,14 @@ import { animations, easeInOutCubic, lerp, lerpColor, AnimationKeyframe } from '
 import { playAnimationSound } from '../lib/audioEngine';
 
 interface AnimationState {
-  rotation: { x: number; y: number };
+  rotation: { x: number; y: number; z: number };
   radius: number;
   barLength: number;
   color: string;
 }
 
 interface UseAnimationProps {
-  baseRotation: { x: number; y: number };
+  baseRotation: { x: number; y: number; z: number };
   baseRadius: number;
   baseBarLength: number;
   baseColor: string;
@@ -58,7 +58,7 @@ export function useAnimation({
 
       const getPrevValue = (
         key: keyof AnimationKeyframe,
-        defaultVal: number | { x: number; y: number } | string
+        defaultVal: number | { x: number; y: number; z?: number } | string
       ) => {
         for (let i = keyframes.indexOf(prevKeyframe); i >= 0; i--) {
           if (keyframes[i][key] !== undefined) {
@@ -70,7 +70,7 @@ export function useAnimation({
 
       const getNextValue = (
         key: keyof AnimationKeyframe,
-        defaultVal: number | { x: number; y: number } | string
+        defaultVal: number | { x: number; y: number; z?: number } | string
       ) => {
         for (let i = keyframes.indexOf(nextKeyframe); i < keyframes.length; i++) {
           if (keyframes[i][key] !== undefined) {
@@ -80,8 +80,8 @@ export function useAnimation({
         return defaultVal;
       };
 
-      const prevRotation = getPrevValue('rotation', { x: 0, y: 0 }) as { x: number; y: number };
-      const nextRotation = getNextValue('rotation', { x: 0, y: 0 }) as { x: number; y: number };
+      const prevRotation = getPrevValue('rotation', { x: 0, y: 0, z: 0 }) as { x: number; y: number; z?: number };
+      const nextRotation = getNextValue('rotation', { x: 0, y: 0, z: 0 }) as { x: number; y: number; z?: number };
 
       const prevRadiusMult = getPrevValue('radius', 1) as number;
       const nextRadiusMult = getNextValue('radius', 1) as number;
@@ -96,6 +96,7 @@ export function useAnimation({
         rotation: {
           x: initial.rotation.x + lerp(prevRotation.x, nextRotation.x, easedProgress),
           y: initial.rotation.y + lerp(prevRotation.y, nextRotation.y, easedProgress),
+          z: initial.rotation.z + lerp(prevRotation.z || 0, nextRotation.z || 0, easedProgress),
         },
         radius: initial.radius * lerp(prevRadiusMult, nextRadiusMult, easedProgress),
         barLength: initial.barLength * lerp(prevLengthMult, nextLengthMult, easedProgress),

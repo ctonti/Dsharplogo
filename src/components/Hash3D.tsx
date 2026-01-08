@@ -6,8 +6,8 @@ import { Preset } from '../lib/supabase';
 import { useAnimation } from '../hooks/useAnimation';
 
 export default function Hash3D() {
-  const [rotation, setRotation] = useState({ x: -25, y: 35 });
-  const [targetRotation, setTargetRotation] = useState({ x: -25, y: 35 });
+  const [rotation, setRotation] = useState({ x: -25, y: 35, z: 0 });
+  const [targetRotation, setTargetRotation] = useState({ x: -25, y: 35, z: 0 });
 
   const [isPerspective, setIsPerspective] = useState(true);
   const [isDark, setIsDark] = useState(false);
@@ -73,8 +73,8 @@ export default function Hash3D() {
     setGradientColor1(preset.gradient_color1);
     setGradientColor2(preset.gradient_color2);
     setGradientAngle(preset.gradient_angle);
-    setRotation({ x: preset.rotation_x, y: preset.rotation_y });
-    setTargetRotation({ x: preset.rotation_x, y: preset.rotation_y });
+    setRotation({ x: preset.rotation_x, y: preset.rotation_y, z: preset.rotation_z });
+    setTargetRotation({ x: preset.rotation_x, y: preset.rotation_y, z: preset.rotation_z });
   };
 
   const getCurrentSettings = () => ({
@@ -86,7 +86,7 @@ export default function Hash3D() {
     bar_depth: radius * 2,
     rotation_x: Math.round(rotation.x),
     rotation_y: Math.round(rotation.y),
-    rotation_z: 0,
+    rotation_z: Math.round(rotation.z),
     vertical_tilt: verticalTilt,
     is_outline: isOutline,
     outline_thickness: 2,
@@ -128,7 +128,8 @@ export default function Hash3D() {
 
         setTargetRotation({
           x: -mouseY * 360,
-          y: mouseX * 360
+          y: mouseX * 360,
+          z: 0
         });
       }
     };
@@ -163,7 +164,8 @@ export default function Hash3D() {
     const animate = () => {
       setRotation(prev => ({
         x: prev.x + (targetRotation.x - prev.x) * 0.06,
-        y: prev.y + (targetRotation.y - prev.y) * 0.06
+        y: prev.y + (targetRotation.y - prev.y) * 0.06,
+        z: prev.z + (targetRotation.z - prev.z) * 0.06
       }));
       animationId = requestAnimationFrame(animate);
     };
@@ -486,7 +488,7 @@ export default function Hash3D() {
         className="relative"
         style={{
           transformStyle: 'preserve-3d',
-          transform: `rotateX(${activeRotation.x}deg) rotateY(${activeRotation.y}deg)`,
+          transform: `rotateX(${activeRotation.x}deg) rotateY(${activeRotation.y}deg) rotateZ(${activeRotation.z || 0}deg)`,
         }}
       >
         {bars}
