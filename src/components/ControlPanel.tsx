@@ -15,6 +15,8 @@ interface ControlPanelProps {
   setVerticalTilt: (v: number) => void;
   primaryColor: string;
   setPrimaryColor: (v: string) => void;
+  backgroundColor: string;
+  setBackgroundColor: (v: string) => void;
 }
 
 export default function ControlPanel({
@@ -34,6 +36,8 @@ export default function ControlPanel({
   setVerticalTilt,
   primaryColor,
   setPrimaryColor,
+  backgroundColor,
+  setBackgroundColor,
 }: ControlPanelProps) {
   const buttonBase = `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border-2`;
 
@@ -92,6 +96,16 @@ export default function ControlPanel({
             type="color"
             value={primaryColor}
             onChange={(e) => setPrimaryColor(e.target.value)}
+            className="w-8 h-8 rounded cursor-pointer border-2 border-gray-300"
+          />
+        </div>
+
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white/20 rounded-lg border-2 border-gray-300/50">
+          <label className={`text-xs font-medium ${labelClass}`}>Sfondo</label>
+          <input
+            type="color"
+            value={backgroundColor}
+            onChange={(e) => setBackgroundColor(e.target.value)}
             className="w-8 h-8 rounded cursor-pointer border-2 border-gray-300"
           />
         </div>
