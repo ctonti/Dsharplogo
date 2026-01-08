@@ -26,6 +26,7 @@ export interface Preset {
   is_perspective: boolean;
   is_light_on: boolean;
   primary_color: string;
+  background_color?: string;
   created_at: string;
   updated_at: string;
 }
@@ -46,4 +47,5 @@ export interface PresetSettings {
   is_perspective: boolean;
   is_light_on: boolean;
   primary_color: string;
+  background_color: string;
 }
