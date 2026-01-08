@@ -12,6 +12,7 @@ export interface AnimationDefinition {
   icon: string;
   duration: number;
   keyframes: AnimationKeyframe[];
+  easing?: 'cubic' | 'quart' | 'sine';
   sound: {
     type: 'oscillator' | 'noise';
     frequency?: number;
@@ -213,6 +214,7 @@ export const animations: AnimationDefinition[] = [
     name: 'Success',
     icon: '🎉',
     duration: 5000,
+    easing: 'sine',
     keyframes: [
       { time: 0 },
       { time: 0.15, radius: 1.8, barLength: 1.15, rotation: { x: 5, y: 0, z: 15 }, color: '#FF7500' },
@@ -341,6 +343,14 @@ export const animations: AnimationDefinition[] = [
 
 export function easeInOutCubic(t: number): number {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+export function easeInOutQuart(t: number): number {
+  return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+}
+
+export function easeInOutSine(t: number): number {
+  return -(Math.cos(Math.PI * t) - 1) / 2;
 }
 
 export function easeOutElastic(t: number): number {
