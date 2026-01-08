@@ -192,26 +192,27 @@ export default function Hash3D() {
   };
 
   const getColors = () => {
+    const baseColor = gradientEnabled ? primaryColor : activeColor;
     if (!isLightOn) {
-      const base = isDark ? adjustBrightness(activeColor, -30) : activeColor;
+      const base = isDark ? adjustBrightness(baseColor, -30) : baseColor;
       return { front: base, back: base, side: base, top: base, bottom: base };
     }
-    const lighter = adjustBrightness(activeColor, 30);
-    const darker = adjustBrightness(activeColor, -20);
-    const darkest = adjustBrightness(activeColor, -40);
-    const lightest = adjustBrightness(activeColor, 50);
+    const lighter = adjustBrightness(baseColor, 30);
+    const darker = adjustBrightness(baseColor, -20);
+    const darkest = adjustBrightness(baseColor, -40);
+    const lightest = adjustBrightness(baseColor, 50);
 
     if (isDark) {
       return {
         front: lighter,
-        back: activeColor,
+        back: baseColor,
         side: darker,
         top: lightest,
         bottom: darkest
       };
     }
     return {
-      front: activeColor,
+      front: baseColor,
       back: darker,
       side: darkest,
       top: lighter,
@@ -220,7 +221,8 @@ export default function Hash3D() {
   };
 
   const colors = getColors();
-  const borderColor = isDark ? adjustBrightness(activeColor, 80) : adjustBrightness(activeColor, -40);
+  const baseColorForBorder = gradientEnabled ? primaryColor : activeColor;
+  const borderColor = isDark ? adjustBrightness(baseColorForBorder, 80) : adjustBrightness(baseColorForBorder, -40);
   const outlineBorder = `2px solid ${borderColor}`;
 
   const createBox = (
