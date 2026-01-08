@@ -296,10 +296,10 @@ export const animations: AnimationDefinition[] = [
     duration: 2000,
     keyframes: [
       { time: 0, rotation: { x: 0, y: 0 } },
-      { time: 0.25, rotation: { x: 0, y: 90 } },
-      { time: 0.5, rotation: { x: 0, y: 180 } },
-      { time: 0.75, rotation: { x: 0, y: 270 } },
-      { time: 1.0, rotation: { x: 0, y: 360 } },
+      { time: 0.25, rotation: { x: 90, y: 0 } },
+      { time: 0.5, rotation: { x: 180, y: 0 } },
+      { time: 0.75, rotation: { x: 270, y: 0 } },
+      { time: 1.0, rotation: { x: 360, y: 0 } },
     ],
     sound: {
       type: 'oscillator',
