@@ -29,6 +29,11 @@ export default function Hash3D() {
   const [shadowColor, setShadowColor] = useState('#00000080');
   const [shadowOffsetX, setShadowOffsetX] = useState(10);
   const [shadowOffsetY, setShadowOffsetY] = useState(10);
+  const [gradientEnabled, setGradientEnabled] = useState(false);
+  const [gradientType, setGradientType] = useState('linear');
+  const [gradientColor1, setGradientColor1] = useState('#3b82f6');
+  const [gradientColor2, setGradientColor2] = useState('#8b5cf6');
+  const [gradientAngle, setGradientAngle] = useState(90);
 
   const { currentAnimation, animationState, playAnimation } = useAnimation({
     baseRotation: rotation,
@@ -63,6 +68,11 @@ export default function Hash3D() {
     setShadowColor(preset.shadow_color);
     setShadowOffsetX(preset.shadow_offset_x);
     setShadowOffsetY(preset.shadow_offset_y);
+    setGradientEnabled(preset.gradient_enabled);
+    setGradientType(preset.gradient_type);
+    setGradientColor1(preset.gradient_color1);
+    setGradientColor2(preset.gradient_color2);
+    setGradientAngle(preset.gradient_angle);
     setRotation({ x: preset.rotation_x, y: preset.rotation_y });
     setTargetRotation({ x: preset.rotation_x, y: preset.rotation_y });
   };
@@ -93,6 +103,11 @@ export default function Hash3D() {
     shadow_color: shadowColor,
     shadow_offset_x: shadowOffsetX,
     shadow_offset_y: shadowOffsetY,
+    gradient_enabled: gradientEnabled,
+    gradient_type: gradientType,
+    gradient_color1: gradientColor1,
+    gradient_color2: gradientColor2,
+    gradient_angle: gradientAngle,
   });
 
   useEffect(() => {
@@ -223,9 +238,19 @@ export default function Hash3D() {
     const hz = lengthZ / 2;
 
     const faceStyle = (color: string) => {
+      let background = color;
+
+      if (gradientEnabled && !isOutline) {
+        if (gradientType === 'linear') {
+          background = `linear-gradient(${gradientAngle}deg, ${gradientColor1}, ${gradientColor2})`;
+        } else {
+          background = `radial-gradient(circle, ${gradientColor1}, ${gradientColor2})`;
+        }
+      }
+
       const baseStyle: React.CSSProperties = isOutline
         ? { background: 'transparent', border: outlineBorder }
-        : { background: color };
+        : { background };
 
       if (opacity < 100) {
         baseStyle.opacity = opacity / 100;
@@ -510,6 +535,16 @@ export default function Hash3D() {
         setShadowOffsetX={setShadowOffsetX}
         shadowOffsetY={shadowOffsetY}
         setShadowOffsetY={setShadowOffsetY}
+        gradientEnabled={gradientEnabled}
+        setGradientEnabled={setGradientEnabled}
+        gradientType={gradientType}
+        setGradientType={setGradientType}
+        gradientColor1={gradientColor1}
+        setGradientColor1={setGradientColor1}
+        gradientColor2={gradientColor2}
+        setGradientColor2={setGradientColor2}
+        gradientAngle={gradientAngle}
+        setGradientAngle={setGradientAngle}
       />
 
       <PresetList

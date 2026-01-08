@@ -36,6 +36,11 @@ export interface Preset {
   shadow_color: string;
   shadow_offset_x: number;
   shadow_offset_y: number;
+  gradient_enabled: boolean;
+  gradient_type: string;
+  gradient_color1: string;
+  gradient_color2: string;
+  gradient_angle: number;
   created_at: string;
   updated_at: string;
 }
@@ -66,4 +71,9 @@ export interface PresetSettings {
   shadow_color: string;
   shadow_offset_x: number;
   shadow_offset_y: number;
+  gradient_enabled: boolean;
+  gradient_type: string;
+  gradient_color1: string;
+  gradient_color2: string;
+  gradient_angle: number;
 }

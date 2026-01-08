@@ -37,6 +37,16 @@ interface ControlPanelProps {
   setShadowOffsetX: (v: number) => void;
   shadowOffsetY: number;
   setShadowOffsetY: (v: number) => void;
+  gradientEnabled: boolean;
+  setGradientEnabled: (v: boolean) => void;
+  gradientType: string;
+  setGradientType: (v: string) => void;
+  gradientColor1: string;
+  setGradientColor1: (v: string) => void;
+  gradientColor2: string;
+  setGradientColor2: (v: string) => void;
+  gradientAngle: number;
+  setGradientAngle: (v: number) => void;
 }
 
 export default function ControlPanel({
@@ -76,6 +86,16 @@ export default function ControlPanel({
   setShadowOffsetX,
   shadowOffsetY,
   setShadowOffsetY,
+  gradientEnabled,
+  setGradientEnabled,
+  gradientType,
+  setGradientType,
+  gradientColor1,
+  setGradientColor1,
+  gradientColor2,
+  setGradientColor2,
+  gradientAngle,
+  setGradientAngle,
 }: ControlPanelProps) {
   const buttonBase = `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border-2`;
 
@@ -142,12 +162,21 @@ export default function ControlPanel({
           {shadowEnabled ? 'Ombra On' : 'Ombra Off'}
         </button>
 
-        <ColorPicker
-          value={primaryColor}
-          onChange={setPrimaryColor}
-          label="Colore"
-          isDark={isDark}
-        />
+        <button
+          onClick={() => setGradientEnabled(!gradientEnabled)}
+          className={`${buttonBase} ${getButtonStyle(gradientEnabled)}`}
+        >
+          {gradientEnabled ? 'Gradient On' : 'Gradient Off'}
+        </button>
+
+        {!gradientEnabled && (
+          <ColorPicker
+            value={primaryColor}
+            onChange={setPrimaryColor}
+            label="Colore"
+            isDark={isDark}
+          />
+        )}
 
         <ColorPicker
           value={backgroundColor}
@@ -172,6 +201,23 @@ export default function ControlPanel({
             label="Ombra"
             isDark={isDark}
           />
+        )}
+
+        {gradientEnabled && (
+          <>
+            <ColorPicker
+              value={gradientColor1}
+              onChange={setGradientColor1}
+              label="Gradient 1"
+              isDark={isDark}
+            />
+            <ColorPicker
+              value={gradientColor2}
+              onChange={setGradientColor2}
+              label="Gradient 2"
+              isDark={isDark}
+            />
+          </>
         )}
       </div>
 
@@ -283,6 +329,41 @@ export default function ControlPanel({
               />
               <span className={`text-sm w-10 text-right ${labelClass}`}>{shadowOffsetY}px</span>
             </div>
+          </>
+        )}
+
+        {gradientEnabled && (
+          <>
+            <div className="flex items-center gap-3">
+              <label className={`text-sm font-medium w-24 ${labelClass}`}>Tipo</label>
+              <select
+                value={gradientType}
+                onChange={(e) => setGradientType(e.target.value)}
+                className={`flex-1 px-3 py-2 rounded-lg text-sm ${
+                  isDark
+                    ? 'bg-gray-700 text-white border border-gray-600'
+                    : 'bg-white text-gray-900 border border-gray-300'
+                }`}
+              >
+                <option value="linear">Lineare</option>
+                <option value="radial">Radiale</option>
+              </select>
+            </div>
+
+            {gradientType === 'linear' && (
+              <div className="flex items-center gap-3">
+                <label className={`text-sm font-medium w-24 ${labelClass}`}>Angolo</label>
+                <input
+                  type="range"
+                  min="0"
+                  max="360"
+                  value={gradientAngle}
+                  onChange={(e) => setGradientAngle(Number(e.target.value))}
+                  className={`flex-1 h-2 rounded-lg appearance-none cursor-pointer ${sliderTrack}`}
+                />
+                <span className={`text-sm w-10 text-right ${labelClass}`}>{gradientAngle}°</span>
+              </div>
+            )}
           </>
         )}
       </div>
