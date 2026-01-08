@@ -4,6 +4,7 @@ export interface AnimationKeyframe {
   radius?: number;
   barLength?: number;
   color?: string;
+  offsetY?: number;
 }
 
 export interface AnimationDefinition {
@@ -213,16 +214,16 @@ export const animations: AnimationDefinition[] = [
     id: 'success',
     name: 'Success',
     icon: '🎉',
-    duration: 5000,
+    duration: 1200,
     easing: 'sine',
     keyframes: [
-      { time: 0 },
-      { time: 0.15, radius: 1.8, barLength: 1.15, rotation: { x: 5, y: 0, z: 15 }, color: '#FF7500' },
-      { time: 0.3, radius: 2.6, barLength: 1.3, rotation: { x: -5, y: 0, z: -15 }, color: '#FF8C00' },
-      { time: 0.5, radius: 3.4, barLength: 1.4, rotation: { x: 5, y: 0, z: 12 }, color: '#FF7500' },
-      { time: 0.7, radius: 4.2, barLength: 1.5, rotation: { x: -5, y: 0, z: -12 }, color: '#FFA500' },
-      { time: 0.85, radius: 4.5, barLength: 1.6, rotation: { x: 3, y: 0, z: 8 } },
-      { time: 1.0, radius: 4.5, barLength: 1.6, rotation: { x: 0, y: 0, z: 0 } },
+      { time: 0, rotation: { x: 0, y: 0, z: 0 }, offsetY: 0, color: '#3b82f6' },
+      { time: 0.25, rotation: { x: 0, y: 90, z: 0 }, offsetY: -80, color: '#8b5cf6' },
+      { time: 0.5, rotation: { x: 0, y: 180, z: 0 }, offsetY: -120, color: '#ec4899' },
+      { time: 0.65, rotation: { x: 0, y: 270, z: 0 }, offsetY: -80, color: '#f97316' },
+      { time: 0.8, rotation: { x: 0, y: 340, z: 0 }, offsetY: 0, color: '#eab308' },
+      { time: 0.9, rotation: { x: 0, y: 360, z: 0 }, offsetY: -20, color: '#22c55e' },
+      { time: 1.0, rotation: { x: 0, y: 360, z: 0 }, offsetY: 0, color: '#10b981' },
     ],
     sound: {
       type: 'oscillator',

@@ -47,6 +47,7 @@ export default function Hash3D() {
   const activeRadius = animationState?.radius || radius;
   const activeBarLength = animationState?.barLength || barLength;
   const activeColor = animationState?.color || primaryColor;
+  const activeOffsetY = animationState?.offsetY || 0;
 
   const s = 30;
 
@@ -488,7 +489,7 @@ export default function Hash3D() {
         className="relative"
         style={{
           transformStyle: 'preserve-3d',
-          transform: `rotateX(${activeRotation.x}deg) rotateY(${activeRotation.y}deg) rotateZ(${activeRotation.z || 0}deg)`,
+          transform: `translateY(${activeOffsetY}px) rotateX(${activeRotation.x}deg) rotateY(${activeRotation.y}deg) rotateZ(${activeRotation.z || 0}deg)`,
         }}
       >
         {bars}

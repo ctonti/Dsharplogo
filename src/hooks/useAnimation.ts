@@ -7,6 +7,7 @@ interface AnimationState {
   radius: number;
   barLength: number;
   color: string;
+  offsetY: number;
 }
 
 interface UseAnimationProps {
@@ -98,6 +99,9 @@ export function useAnimation({
       const prevColor = getPrevValue('color', initial.color) as string;
       const nextColor = getNextValue('color', initial.color) as string;
 
+      const prevOffsetY = getPrevValue('offsetY', 0) as number;
+      const nextOffsetY = getNextValue('offsetY', 0) as number;
+
       return {
         rotation: {
           x: initial.rotation.x + lerp(prevRotation.x, nextRotation.x, easedProgress),
@@ -107,6 +111,7 @@ export function useAnimation({
         radius: initial.radius * lerp(prevRadiusMult, nextRadiusMult, easedProgress),
         barLength: initial.barLength * lerp(prevLengthMult, nextLengthMult, easedProgress),
         color: lerpColor(prevColor, nextColor, easedProgress),
+        offsetY: lerp(prevOffsetY, nextOffsetY, easedProgress),
       };
     },
     []
@@ -126,6 +131,7 @@ export function useAnimation({
         radius: baseRadius,
         barLength: baseBarLength,
         color: baseColor,
+        offsetY: 0,
       };
 
       initialStateRef.current = initial;
