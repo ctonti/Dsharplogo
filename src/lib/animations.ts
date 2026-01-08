@@ -13,7 +13,7 @@ export interface AnimationDefinition {
   icon: string;
   duration: number;
   keyframes: AnimationKeyframe[];
-  easing?: 'cubic' | 'quart' | 'sine';
+  easing?: 'cubic' | 'quart' | 'sine' | 'linear';
   sound: {
     type: 'oscillator' | 'noise';
     frequency?: number;
@@ -364,6 +364,10 @@ export function easeInOutQuart(t: number): number {
 
 export function easeInOutSine(t: number): number {
   return -(Math.cos(Math.PI * t) - 1) / 2;
+}
+
+export function easeLinear(t: number): number {
+  return t;
 }
 
 export function easeOutElastic(t: number): number {

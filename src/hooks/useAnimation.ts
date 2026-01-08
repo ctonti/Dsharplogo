@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import { animations, easeInOutCubic, easeInOutQuart, easeInOutSine, lerp, lerpColor, AnimationKeyframe } from '../lib/animations';
+import { animations, easeInOutCubic, easeInOutQuart, easeInOutSine, easeLinear, lerp, lerpColor, AnimationKeyframe } from '../lib/animations';
 import { playAnimationSound } from '../lib/audioEngine';
 
 interface AnimationState {
@@ -38,7 +38,7 @@ export function useAnimation({
   const initialStateRef = useRef<AnimationState | null>(null);
 
   const interpolateKeyframes = useCallback(
-    (keyframes: AnimationKeyframe[], progress: number, initial: AnimationState, easingType: 'cubic' | 'quart' | 'sine' = 'cubic'): AnimationState => {
+    (keyframes: AnimationKeyframe[], progress: number, initial: AnimationState, easingType: 'cubic' | 'quart' | 'sine' | 'linear' = 'cubic'): AnimationState => {
       let prevKeyframe: AnimationKeyframe = keyframes[0];
       let nextKeyframe: AnimationKeyframe = keyframes[keyframes.length - 1];
 
@@ -59,6 +59,7 @@ export function useAnimation({
         cubic: easeInOutCubic,
         quart: easeInOutQuart,
         sine: easeInOutSine,
+        linear: easeLinear,
       };
 
       const easedProgress = easingFunctions[easingType](segmentProgress);
