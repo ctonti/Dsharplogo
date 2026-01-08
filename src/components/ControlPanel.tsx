@@ -1,3 +1,5 @@
+import ColorPicker from './ColorPicker';
+
 interface ControlPanelProps {
   isPerspective: boolean;
   setIsPerspective: (v: boolean) => void;
@@ -90,25 +92,19 @@ export default function ControlPanel({
           {isOutline ? 'Outline' : 'Solid'}
         </button>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-white/20 rounded-lg border-2 border-gray-300/50">
-          <label className={`text-xs font-medium ${labelClass}`}>Colore</label>
-          <input
-            type="color"
-            value={primaryColor}
-            onChange={(e) => setPrimaryColor(e.target.value)}
-            className="w-8 h-8 rounded cursor-pointer border-2 border-gray-300"
-          />
-        </div>
+        <ColorPicker
+          value={primaryColor}
+          onChange={setPrimaryColor}
+          label="Colore"
+          isDark={isDark}
+        />
 
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-white/20 rounded-lg border-2 border-gray-300/50">
-          <label className={`text-xs font-medium ${labelClass}`}>Sfondo</label>
-          <input
-            type="color"
-            value={backgroundColor}
-            onChange={(e) => setBackgroundColor(e.target.value)}
-            className="w-8 h-8 rounded cursor-pointer border-2 border-gray-300"
-          />
-        </div>
+        <ColorPicker
+          value={backgroundColor}
+          onChange={setBackgroundColor}
+          label="Sfondo"
+          isDark={isDark}
+        />
       </div>
 
       <div className="flex flex-col gap-3 pt-2 border-t border-gray-500/30">
