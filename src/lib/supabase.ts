@@ -41,6 +41,7 @@ export interface Preset {
   gradient_color1: string;
   gradient_color2: string;
   gradient_angle: number;
+  gradient_target: string;
   created_at: string;
   updated_at: string;
 }
@@ -76,4 +77,5 @@ export interface PresetSettings {
   gradient_color1: string;
   gradient_color2: string;
   gradient_angle: number;
+  gradient_target: string;
 }

@@ -34,6 +34,7 @@ export default function Hash3D() {
   const [gradientColor1, setGradientColor1] = useState('#3b82f6');
   const [gradientColor2, setGradientColor2] = useState('#8b5cf6');
   const [gradientAngle, setGradientAngle] = useState(90);
+  const [gradientTarget, setGradientTarget] = useState('all');
 
   const { currentAnimation, animationState, playAnimation } = useAnimation({
     baseRotation: rotation,
@@ -73,6 +74,7 @@ export default function Hash3D() {
     setGradientColor1(preset.gradient_color1);
     setGradientColor2(preset.gradient_color2);
     setGradientAngle(preset.gradient_angle);
+    setGradientTarget(preset.gradient_target || 'all');
     setRotation({ x: preset.rotation_x, y: preset.rotation_y });
     setTargetRotation({ x: preset.rotation_x, y: preset.rotation_y });
   };
@@ -108,6 +110,7 @@ export default function Hash3D() {
     gradient_color1: gradientColor1,
     gradient_color2: gradientColor2,
     gradient_angle: gradientAngle,
+    gradient_target: gradientTarget,
   });
 
   useEffect(() => {
@@ -237,10 +240,16 @@ export default function Hash3D() {
     const hy = lengthY / 2;
     const hz = lengthZ / 2;
 
-    const faceStyle = (color: string) => {
+    const faceStyle = (color: string, faceType: string) => {
       let background = color;
 
-      if (gradientEnabled && !isOutline) {
+      const shouldApplyGradient = gradientEnabled && !isOutline && (
+        gradientTarget === 'all' ||
+        gradientTarget === faceType ||
+        (gradientTarget === 'sides' && faceType === 'side')
+      );
+
+      if (shouldApplyGradient) {
         if (gradientType === 'linear') {
           background = `linear-gradient(${gradientAngle}deg, ${gradientColor1}, ${gradientColor2})`;
         } else {
@@ -287,7 +296,7 @@ export default function Hash3D() {
             width: lengthX,
             height: lengthY,
             transform: `translate3d(${-hx}px, ${-hy}px, ${hz}px)`,
-            ...faceStyle(colors.front),
+            ...faceStyle(colors.front, 'front'),
           }}
         />
         <div
@@ -296,7 +305,7 @@ export default function Hash3D() {
             width: lengthX,
             height: lengthY,
             transform: `translate3d(${-hx}px, ${-hy}px, ${-hz}px)`,
-            ...faceStyle(colors.back),
+            ...faceStyle(colors.back, 'back'),
           }}
         />
         <div
@@ -305,7 +314,7 @@ export default function Hash3D() {
             width: lengthZ,
             height: lengthY,
             transform: `translate3d(${-hz}px, ${-hy}px, 0px) rotateY(90deg) translateZ(${-hx}px)`,
-            ...faceStyle(colors.side),
+            ...faceStyle(colors.side, 'side'),
           }}
         />
         <div
@@ -314,7 +323,7 @@ export default function Hash3D() {
             width: lengthZ,
             height: lengthY,
             transform: `translate3d(${-hz}px, ${-hy}px, 0px) rotateY(90deg) translateZ(${hx}px)`,
-            ...faceStyle(colors.side),
+            ...faceStyle(colors.side, 'side'),
           }}
         />
         <div
@@ -323,7 +332,7 @@ export default function Hash3D() {
             width: lengthX,
             height: lengthZ,
             transform: `translate3d(${-hx}px, ${-hz}px, 0px) rotateX(90deg) translateZ(${-hy}px)`,
-            ...faceStyle(colors.top),
+            ...faceStyle(colors.top, 'top'),
           }}
         />
         <div
@@ -332,7 +341,7 @@ export default function Hash3D() {
             width: lengthX,
             height: lengthZ,
             transform: `translate3d(${-hx}px, ${-hz}px, 0px) rotateX(90deg) translateZ(${hy}px)`,
-            ...faceStyle(colors.bottom),
+            ...faceStyle(colors.bottom, 'bottom'),
           }}
         />
       </div>
@@ -472,12 +481,23 @@ export default function Hash3D() {
     });
   }
 
+  const getBackgroundStyle = () => {
+    if (gradientEnabled && gradientTarget === 'background') {
+      if (gradientType === 'linear') {
+        return `linear-gradient(${gradientAngle}deg, ${gradientColor1}, ${gradientColor2})`;
+      } else {
+        return `radial-gradient(circle, ${gradientColor1}, ${gradientColor2})`;
+      }
+    }
+    return backgroundColor;
+  };
+
   return (
     <div
       className="w-full h-screen flex items-center justify-center overflow-hidden transition-colors duration-300"
       style={{
         perspective: isPerspective ? '800px' : 'none',
-        backgroundColor: backgroundColor,
+        background: getBackgroundStyle(),
       }}
     >
       <div
@@ -545,6 +565,8 @@ export default function Hash3D() {
         setGradientColor2={setGradientColor2}
         gradientAngle={gradientAngle}
         setGradientAngle={setGradientAngle}
+        gradientTarget={gradientTarget}
+        setGradientTarget={setGradientTarget}
       />
 
       <PresetList
