@@ -31,7 +31,7 @@ export const animations: AnimationDefinition[] = [
     id: 'pulse',
     name: 'Pulse',
     icon: '💓',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.15, radius: 1.3, barLength: 1.05, rotation: { x: -5, y: 8 } },
@@ -58,7 +58,7 @@ export const animations: AnimationDefinition[] = [
     id: 'spin',
     name: 'Spin',
     icon: '🔄',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.25, rotation: { x: 0, y: 180 } },
@@ -82,7 +82,7 @@ export const animations: AnimationDefinition[] = [
     id: 'think',
     name: 'Think',
     icon: '🤔',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.2, rotation: { x: -10, y: -20 } },
@@ -107,7 +107,7 @@ export const animations: AnimationDefinition[] = [
     id: 'wow',
     name: 'Wow',
     icon: '😮',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.2, radius: 0.6, barLength: 0.7, rotation: { x: 10, y: -15 } },
@@ -132,7 +132,7 @@ export const animations: AnimationDefinition[] = [
     id: 'yes',
     name: 'Yes',
     icon: '✓',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.15, rotation: { x: 25, y: 0 } },
@@ -160,7 +160,7 @@ export const animations: AnimationDefinition[] = [
     id: 'no',
     name: 'No',
     icon: '✗',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.1, rotation: { x: 0, y: -30 } },
@@ -188,7 +188,7 @@ export const animations: AnimationDefinition[] = [
     id: 'wait',
     name: 'Wait',
     icon: '⏳',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.25, rotation: { x: 0, y: 90 }, radius: 0.9 },
@@ -212,7 +212,7 @@ export const animations: AnimationDefinition[] = [
     id: 'success',
     name: 'Success',
     icon: '🎉',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.15, radius: 1.2, barLength: 1.1, color: '#22c55e' },
@@ -239,7 +239,7 @@ export const animations: AnimationDefinition[] = [
     id: 'error',
     name: 'Error',
     icon: '⚠',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.1, rotation: { x: 0, y: -15 }, color: '#ef4444' },
@@ -269,7 +269,7 @@ export const animations: AnimationDefinition[] = [
     id: 'blink',
     name: 'Blink',
     icon: '|',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0 },
       { time: 0.25, barLength: 0.1, radius: 0.2, color: '#64748b' },
@@ -293,7 +293,7 @@ export const animations: AnimationDefinition[] = [
     id: 'rotate360',
     name: 'Rotate 360',
     icon: '↻',
-    duration: 2000,
+    duration: 5000,
     keyframes: [
       { time: 0, rotation: { x: 0, y: 0 } },
       { time: 0.25, rotation: { x: 0, y: 90 } },

@@ -92,7 +92,7 @@ export default function AnimationPanel({
       </div>
 
       <div className={`text-xs text-center pt-2 border-t border-gray-500/30 ${subtextClass}`}>
-        Durata: 2 secondi
+        Durata: 5 secondi
       </div>
     </div>
   );
