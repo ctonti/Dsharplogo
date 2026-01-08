@@ -265,6 +265,30 @@ export const animations: AnimationDefinition[] = [
       pattern: [0, 300],
     },
   },
+  {
+    id: 'blink',
+    name: 'Blink',
+    icon: '|',
+    duration: 2000,
+    keyframes: [
+      { time: 0 },
+      { time: 0.25, barLength: 0.1, radius: 0.2, color: '#64748b' },
+      { time: 0.5 },
+      { time: 0.75, barLength: 0.1, radius: 0.2, color: '#64748b' },
+      { time: 1.0 },
+    ],
+    sound: {
+      type: 'oscillator',
+      frequency: 800,
+      waveform: 'square',
+      attack: 0.01,
+      decay: 0.05,
+      sustain: 0.05,
+      release: 0.05,
+      volume: 0.1,
+      pattern: [0, 500, 1000, 1500],
+    },
+  },
 ];
 
 export function easeInOutCubic(t: number): number {
