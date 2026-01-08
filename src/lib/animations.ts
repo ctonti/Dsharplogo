@@ -289,6 +289,30 @@ export const animations: AnimationDefinition[] = [
       pattern: [0, 500, 1000, 1500],
     },
   },
+  {
+    id: 'rotate360',
+    name: 'Rotate 360',
+    icon: '↻',
+    duration: 2000,
+    keyframes: [
+      { time: 0, rotation: { x: 0, y: 0 } },
+      { time: 0.25, rotation: { x: 0, y: 90 } },
+      { time: 0.5, rotation: { x: 0, y: 180 } },
+      { time: 0.75, rotation: { x: 0, y: 270 } },
+      { time: 1.0, rotation: { x: 0, y: 360 } },
+    ],
+    sound: {
+      type: 'oscillator',
+      frequency: 400,
+      frequencyEnd: 600,
+      waveform: 'sine',
+      attack: 0.1,
+      decay: 0.3,
+      sustain: 0.5,
+      release: 0.4,
+      volume: 0.25,
+    },
+  },
 ];
 
 export function easeInOutCubic(t: number): number {
