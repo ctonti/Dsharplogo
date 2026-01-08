@@ -196,7 +196,7 @@ export default function Hash3D() {
   };
 
   const getColors = () => {
-    const baseColor = gradientEnabled ? primaryColor : activeColor;
+    const baseColor = primaryColor;
     if (!isLightOn) {
       const base = isDark ? adjustBrightness(baseColor, -30) : baseColor;
       return { front: base, back: base, side: base, top: base, bottom: base };
@@ -247,18 +247,10 @@ export default function Hash3D() {
       let background = color;
 
       if (gradientEnabled && !isOutline) {
-        let color1 = gradientColor1;
-        let color2 = gradientColor2;
-
-        if (animationState) {
-          color1 = lerpColor(gradientColor1, activeColor, 0.8);
-          color2 = lerpColor(gradientColor2, activeColor, 0.8);
-        }
-
         if (gradientType === 'linear') {
-          background = `linear-gradient(${gradientAngle}deg, ${color1}, ${color2})`;
+          background = `linear-gradient(${gradientAngle}deg, ${gradientColor1}, ${gradientColor2})`;
         } else {
-          background = `radial-gradient(circle, ${color1}, ${color2})`;
+          background = `radial-gradient(circle, ${gradientColor1}, ${gradientColor2})`;
         }
       }
 
