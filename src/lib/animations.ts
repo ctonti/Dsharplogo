@@ -215,12 +215,11 @@ export const animations: AnimationDefinition[] = [
     duration: 5000,
     keyframes: [
       { time: 0 },
-      { time: 0.15, radius: 1.2, barLength: 1.1, color: '#22c55e' },
-      { time: 0.3, radius: 1.4, barLength: 1.2, rotation: { x: -10, y: 20 } },
-      { time: 0.5, radius: 1.3, barLength: 1.15, color: '#4ade80' },
-      { time: 0.7, radius: 1.15, barLength: 1.05, rotation: { x: 5, y: -10 } },
-      { time: 0.85, radius: 1.05, barLength: 1.02 },
-      { time: 1.0 },
+      { time: 0.2, radius: 1.3, barLength: 1.15, rotation: { x: 0, y: 90 }, color: '#FF7500' },
+      { time: 0.4, radius: 1.6, barLength: 1.3, rotation: { x: 0, y: 180 }, color: '#FF8C00' },
+      { time: 0.6, radius: 1.8, barLength: 1.4, rotation: { x: 0, y: 270 }, color: '#FF7500' },
+      { time: 0.8, radius: 2.0, barLength: 1.5, rotation: { x: 0, y: 360 }, color: '#FFA500' },
+      { time: 1.0, radius: 2.2, barLength: 1.6, rotation: { x: 0, y: 360 } },
     ],
     sound: {
       type: 'oscillator',
