@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import ColorPicker from './ColorPicker';
 
 interface ControlPanelProps {
@@ -97,6 +99,8 @@ export default function ControlPanel({
   gradientAngle,
   setGradientAngle,
 }: ControlPanelProps) {
+  const [isOpen, setIsOpen] = useState(true);
+
   const buttonBase = `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border-2`;
 
   const getButtonStyle = (isActive: boolean) => {
@@ -115,11 +119,29 @@ export default function ControlPanel({
 
   return (
     <div
-      className={`fixed bottom-6 left-1/2 -translate-x-1/2 flex flex-col gap-4 p-4 rounded-2xl shadow-xl backdrop-blur-sm max-w-xl ${
+      className={`fixed bottom-6 left-1/2 -translate-x-1/2 flex flex-col rounded-2xl shadow-xl backdrop-blur-sm max-w-xl transition-all duration-300 ${
         isDark ? 'bg-gray-900/90 border border-gray-700' : 'bg-white/90 border border-gray-200'
       }`}
     >
-      <div className="flex flex-wrap justify-center gap-2">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full flex items-center justify-between px-4 py-3 rounded-t-2xl font-medium text-sm transition-colors ${
+          isDark
+            ? 'text-gray-200 hover:bg-gray-800/50'
+            : 'text-gray-700 hover:bg-gray-100/50'
+        } ${!isOpen ? 'rounded-b-2xl' : ''}`}
+      >
+        <span>Impostazioni</span>
+        {isOpen ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+      </button>
+
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="flex flex-col gap-4 p-4 pt-2">
+          <div className="flex flex-wrap justify-center gap-2">
         <button
           onClick={() => setIsPerspective(!isPerspective)}
           className={`${buttonBase} ${getButtonStyle(isPerspective)}`}
@@ -366,6 +388,8 @@ export default function ControlPanel({
             )}
           </>
         )}
+      </div>
+        </div>
       </div>
     </div>
   );
