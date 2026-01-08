@@ -352,6 +352,38 @@ export const animations: AnimationDefinition[] = [
       volume: 0.25,
     },
   },
+  {
+    id: 'upload',
+    name: 'Material Upload',
+    icon: '📤',
+    duration: 2000,
+    easing: 'cubic',
+    keyframes: [
+      { time: 0, rotation: { x: 0, y: 0, z: 0 }, offsetY: 60, color: '#94a3b8', radius: 0.8 },
+      { time: 0.15, rotation: { x: -10, y: 45, z: 0 }, offsetY: 40, color: '#64748b', radius: 0.85 },
+      { time: 0.3, rotation: { x: -15, y: 90, z: 0 }, offsetY: 20, color: '#475569', radius: 0.9 },
+      { time: 0.45, rotation: { x: -20, y: 135, z: 0 }, offsetY: 0, color: '#3b82f6', radius: 0.95 },
+      { time: 0.6, rotation: { x: -25, y: 180, z: 0 }, offsetY: -20, color: '#06b6d4', radius: 1.0 },
+      { time: 0.7, rotation: { x: -20, y: 225, z: 0 }, offsetY: -35, color: '#14b8a6', radius: 1.05 },
+      { time: 0.8, rotation: { x: -15, y: 270, z: 0 }, offsetY: -50, color: '#10b981', radius: 1.1 },
+      { time: 0.85, rotation: { x: -10, y: 315, z: 0 }, offsetY: -55, color: '#22c55e', radius: 1.15 },
+      { time: 0.9, rotation: { x: -5, y: 360, z: 0 }, offsetY: -60, color: '#22c55e', radius: 1.2 },
+      { time: 0.95, rotation: { x: 0, y: 360, z: 15 }, offsetY: -50, color: '#16a34a', radius: 1.1 },
+      { time: 1.0, rotation: { x: 0, y: 360, z: 0 }, offsetY: -45, color: '#15803d', radius: 1.0 },
+    ],
+    sound: {
+      type: 'oscillator',
+      frequency: 300,
+      frequencyEnd: 650,
+      waveform: 'sine',
+      attack: 0.08,
+      decay: 0.15,
+      sustain: 0.4,
+      release: 0.35,
+      volume: 0.32,
+      pattern: [0, 100, 200],
+    },
+  },
 ];
 
 export function easeInOutCubic(t: number): number {
