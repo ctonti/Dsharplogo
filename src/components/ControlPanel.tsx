@@ -49,8 +49,6 @@ interface ControlPanelProps {
   setGradientColor2: (v: string) => void;
   gradientAngle: number;
   setGradientAngle: (v: number) => void;
-  gradientTarget: string;
-  setGradientTarget: (v: string) => void;
 }
 
 export default function ControlPanel({
@@ -100,8 +98,6 @@ export default function ControlPanel({
   setGradientColor2,
   gradientAngle,
   setGradientAngle,
-  gradientTarget,
-  setGradientTarget,
 }: ControlPanelProps) {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -373,27 +369,6 @@ export default function ControlPanel({
               >
                 <option value="linear">Lineare</option>
                 <option value="radial">Radiale</option>
-              </select>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <label className={`text-sm font-medium w-24 ${labelClass}`}>Applica a</label>
-              <select
-                value={gradientTarget}
-                onChange={(e) => setGradientTarget(e.target.value)}
-                className={`flex-1 px-3 py-2 rounded-lg text-sm ${
-                  isDark
-                    ? 'bg-gray-700 text-white border border-gray-600'
-                    : 'bg-white text-gray-900 border border-gray-300'
-                }`}
-              >
-                <option value="all">Tutte le facce</option>
-                <option value="front">Faccia frontale</option>
-                <option value="back">Faccia posteriore</option>
-                <option value="sides">Facce laterali</option>
-                <option value="top">Faccia superiore</option>
-                <option value="bottom">Faccia inferiore</option>
-                <option value="background">Sfondo</option>
               </select>
             </div>
 
