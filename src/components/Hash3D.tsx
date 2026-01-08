@@ -49,6 +49,7 @@ export default function Hash3D() {
   const activeBarLength = animationState?.barLength || barLength;
   const activeColor = animationState?.color || primaryColor;
   const activeOffsetY = animationState?.offsetY || 0;
+  const activeStrokeColor = animationState?.color || strokeColor;
 
   const s = 30;
 
@@ -271,7 +272,7 @@ export default function Hash3D() {
       }
 
       if (strokeEnabled && !isOutline) {
-        baseStyle.border = `${strokeThickness}px solid ${strokeColor}`;
+        baseStyle.border = `${strokeThickness}px solid ${activeStrokeColor}`;
       }
 
       if (shadowEnabled && !isOutline) {
