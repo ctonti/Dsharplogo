@@ -18,6 +18,7 @@ export default function Hash3D() {
   const [barLength, setBarLength] = useState(180);
   const [verticalTilt, setVerticalTilt] = useState(0);
   const [primaryColor, setPrimaryColor] = useState('#1e40af');
+  const [backgroundColor, setBackgroundColor] = useState('#ffffff');
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   const { currentAnimation, animationState, playAnimation } = useAnimation({
@@ -43,6 +44,7 @@ export default function Hash3D() {
     setIsPerspective(preset.is_perspective);
     setIsLightOn(preset.is_light_on);
     setPrimaryColor(preset.primary_color);
+    setBackgroundColor(preset.background_color);
     setRotation({ x: preset.rotation_x, y: preset.rotation_y });
     setTargetRotation({ x: preset.rotation_x, y: preset.rotation_y });
   };
@@ -63,6 +65,7 @@ export default function Hash3D() {
     is_perspective: isPerspective,
     is_light_on: isLightOn,
     primary_color: primaryColor,
+    background_color: backgroundColor,
   });
 
   useEffect(() => {
@@ -403,11 +406,10 @@ export default function Hash3D() {
 
   return (
     <div
-      className={`w-full h-screen flex items-center justify-center overflow-hidden transition-colors duration-300 ${
-        isDark ? 'bg-gray-900' : 'bg-white'
-      }`}
+      className="w-full h-screen flex items-center justify-center overflow-hidden transition-colors duration-300"
       style={{
         perspective: isPerspective ? '800px' : 'none',
+        backgroundColor: backgroundColor,
       }}
     >
       <div
@@ -445,6 +447,8 @@ export default function Hash3D() {
         setVerticalTilt={setVerticalTilt}
         primaryColor={primaryColor}
         setPrimaryColor={setPrimaryColor}
+        backgroundColor={backgroundColor}
+        setBackgroundColor={setBackgroundColor}
       />
 
       <PresetList
