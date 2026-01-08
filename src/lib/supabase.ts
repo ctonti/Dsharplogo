@@ -31,6 +31,11 @@ export interface Preset {
   stroke_enabled: boolean;
   stroke_thickness: number;
   stroke_color: string;
+  shadow_enabled: boolean;
+  shadow_blur: number;
+  shadow_color: string;
+  shadow_offset_x: number;
+  shadow_offset_y: number;
   created_at: string;
   updated_at: string;
 }
@@ -56,4 +61,9 @@ export interface PresetSettings {
   stroke_enabled: boolean;
   stroke_thickness: number;
   stroke_color: string;
+  shadow_enabled: boolean;
+  shadow_blur: number;
+  shadow_color: string;
+  shadow_offset_x: number;
+  shadow_offset_y: number;
 }

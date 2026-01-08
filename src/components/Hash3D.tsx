@@ -24,6 +24,11 @@ export default function Hash3D() {
   const [strokeEnabled, setStrokeEnabled] = useState(false);
   const [strokeThickness, setStrokeThickness] = useState(2);
   const [strokeColor, setStrokeColor] = useState('#000000');
+  const [shadowEnabled, setShadowEnabled] = useState(false);
+  const [shadowBlur, setShadowBlur] = useState(20);
+  const [shadowColor, setShadowColor] = useState('#00000080');
+  const [shadowOffsetX, setShadowOffsetX] = useState(10);
+  const [shadowOffsetY, setShadowOffsetY] = useState(10);
 
   const { currentAnimation, animationState, playAnimation } = useAnimation({
     baseRotation: rotation,
@@ -53,6 +58,11 @@ export default function Hash3D() {
     setStrokeEnabled(preset.stroke_enabled);
     setStrokeThickness(preset.stroke_thickness);
     setStrokeColor(preset.stroke_color);
+    setShadowEnabled(preset.shadow_enabled);
+    setShadowBlur(preset.shadow_blur);
+    setShadowColor(preset.shadow_color);
+    setShadowOffsetX(preset.shadow_offset_x);
+    setShadowOffsetY(preset.shadow_offset_y);
     setRotation({ x: preset.rotation_x, y: preset.rotation_y });
     setTargetRotation({ x: preset.rotation_x, y: preset.rotation_y });
   };
@@ -78,6 +88,11 @@ export default function Hash3D() {
     stroke_enabled: strokeEnabled,
     stroke_thickness: strokeThickness,
     stroke_color: strokeColor,
+    shadow_enabled: shadowEnabled,
+    shadow_blur: shadowBlur,
+    shadow_color: shadowColor,
+    shadow_offset_x: shadowOffsetX,
+    shadow_offset_y: shadowOffsetY,
   });
 
   useEffect(() => {
@@ -218,6 +233,10 @@ export default function Hash3D() {
 
       if (strokeEnabled && !isOutline) {
         baseStyle.border = `${strokeThickness}px solid ${strokeColor}`;
+      }
+
+      if (shadowEnabled && !isOutline) {
+        baseStyle.boxShadow = `${shadowOffsetX}px ${shadowOffsetY}px ${shadowBlur}px ${shadowColor}`;
       }
 
       return baseStyle;
@@ -481,6 +500,16 @@ export default function Hash3D() {
         setStrokeThickness={setStrokeThickness}
         strokeColor={strokeColor}
         setStrokeColor={setStrokeColor}
+        shadowEnabled={shadowEnabled}
+        setShadowEnabled={setShadowEnabled}
+        shadowBlur={shadowBlur}
+        setShadowBlur={setShadowBlur}
+        shadowColor={shadowColor}
+        setShadowColor={setShadowColor}
+        shadowOffsetX={shadowOffsetX}
+        setShadowOffsetX={setShadowOffsetX}
+        shadowOffsetY={shadowOffsetY}
+        setShadowOffsetY={setShadowOffsetY}
       />
 
       <PresetList
