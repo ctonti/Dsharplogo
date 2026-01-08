@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Save, Trash2 } from 'lucide-react';
 import { supabase, Preset } from '../lib/supabase';
-import ColorPicker from './ColorPicker';
 
 interface PresetListProps {
   isDark: boolean;
@@ -110,19 +109,6 @@ export default function PresetList({ isDark, onLoadPreset, currentSettings }: Pr
     setLoading(false);
   };
 
-  const updatePresetBackgroundColor = async (id: string, backgroundColor: string) => {
-    const { error } = await supabase
-      .from('presets')
-      .update({ background_color: backgroundColor })
-      .eq('id', id);
-
-    if (error) {
-      console.error('Error updating preset background color:', error);
-    } else {
-      await loadPresets();
-    }
-  };
-
   const navigatePreset = (direction: 'prev' | 'next') => {
     if (presets.length === 0) return;
 
@@ -215,7 +201,7 @@ export default function PresetList({ isDark, onLoadPreset, currentSettings }: Pr
             {presets.map((preset, index) => (
               <div
                 key={preset.id}
-                className={`flex flex-col gap-2 p-2 rounded-lg ${
+                className={`flex items-center justify-between gap-2 p-2 rounded-lg ${
                   index === currentIndex
                     ? isDark
                       ? 'bg-blue-900/50 border-2 border-blue-600'
@@ -225,33 +211,23 @@ export default function PresetList({ isDark, onLoadPreset, currentSettings }: Pr
                     : 'bg-gray-100 border-2 border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between gap-2">
-                  <button
-                    onClick={() => {
-                      setCurrentIndex(index);
-                      onLoadPreset(preset);
-                    }}
-                    className={`flex-1 text-left text-sm ${labelClass}`}
-                    disabled={loading}
-                  >
-                    {preset.name}
-                  </button>
-                  <button
-                    onClick={() => deletePreset(preset.id)}
-                    className={`p-1.5 rounded ${getButtonStyle('danger')}`}
-                    disabled={loading}
-                  >
-                    <Trash2 size={14} />
-                  </button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <ColorPicker
-                    value={preset.background_color}
-                    onChange={(color) => updatePresetBackgroundColor(preset.id, color)}
-                    label="Sfondo"
-                    isDark={isDark}
-                  />
-                </div>
+                <button
+                  onClick={() => {
+                    setCurrentIndex(index);
+                    onLoadPreset(preset);
+                  }}
+                  className={`flex-1 text-left text-sm ${labelClass}`}
+                  disabled={loading}
+                >
+                  {preset.name}
+                </button>
+                <button
+                  onClick={() => deletePreset(preset.id)}
+                  className={`p-1.5 rounded ${getButtonStyle('danger')}`}
+                  disabled={loading}
+                >
+                  <Trash2 size={14} />
+                </button>
               </div>
             ))}
           </div>
