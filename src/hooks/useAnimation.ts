@@ -72,8 +72,10 @@ export function useAnimation({
         key: keyof AnimationKeyframe,
         defaultVal: number | { x: number; y: number } | string
       ) => {
-        if (nextKeyframe[key] !== undefined) {
-          return nextKeyframe[key];
+        for (let i = keyframes.indexOf(nextKeyframe); i < keyframes.length; i++) {
+          if (keyframes[i][key] !== undefined) {
+            return keyframes[i][key];
+          }
         }
         return defaultVal;
       };
