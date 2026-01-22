@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronUp, ChevronDown, Video, StopCircle } from 'lucide-react';
 import ColorPicker from './ColorPicker';
+import { useScreenRecording } from '../hooks/useScreenRecording';
 
 interface ControlPanelProps {
   isPerspective: boolean;
@@ -100,6 +101,7 @@ export default function ControlPanel({
   setGradientAngle,
 }: ControlPanelProps) {
   const [isOpen, setIsOpen] = useState(true);
+  const { isRecording, startRecording, stopRecording } = useScreenRecording();
 
   const buttonBase = `px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border-2`;
 
@@ -189,6 +191,29 @@ export default function ControlPanel({
           className={`${buttonBase} ${getButtonStyle(gradientEnabled)}`}
         >
           {gradientEnabled ? 'Gradient On' : 'Gradient Off'}
+        </button>
+
+        <button
+          onClick={isRecording ? stopRecording : startRecording}
+          className={`${buttonBase} ${
+            isRecording
+              ? isDark
+                ? 'bg-red-600 border-red-400 text-white animate-pulse'
+                : 'bg-red-600 border-red-700 text-white animate-pulse'
+              : getButtonStyle(false)
+          } flex items-center gap-2`}
+        >
+          {isRecording ? (
+            <>
+              <StopCircle size={16} />
+              <span>Stop Recording</span>
+            </>
+          ) : (
+            <>
+              <Video size={16} />
+              <span>Record</span>
+            </>
+          )}
         </button>
 
         {!gradientEnabled && (
